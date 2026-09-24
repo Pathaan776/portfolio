@@ -7,6 +7,7 @@ import '../data/portfolio_data.dart';
 import '../theme/app_theme.dart';
 import '../widgets/common.dart';
 import '../widgets/phone_mockup.dart';
+import '../widgets/resume_download.dart';
 
 class HeroSection extends StatelessWidget {
   final VoidCallback onViewWork;
@@ -92,6 +93,12 @@ class HeroSection extends StatelessWidget {
                 icon: Icons.mail_outline_rounded,
                 filled: false,
                 onTap: onContact,
+              ),
+              GlowButton(
+                label: 'Resume',
+                icon: Icons.download_rounded,
+                filled: false,
+                onTap: () => downloadResume(context),
               ),
             ],
           ),

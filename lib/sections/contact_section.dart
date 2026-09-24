@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import '../data/portfolio_data.dart';
 import '../theme/app_theme.dart';
 import '../widgets/common.dart';
+import '../widgets/resume_download.dart';
 
 class ContactSection extends StatelessWidget {
   const ContactSection({super.key});
@@ -72,10 +73,10 @@ class ContactSection extends StatelessWidget {
                         onTap: () => openUrl(PortfolioData.linkedIn),
                       ),
                       GlowButton(
-                        label: 'Resume',
-                        icon: Icons.description_outlined,
+                        label: 'Download resume',
+                        icon: Icons.download_rounded,
                         filled: false,
-                        onTap: () => openUrl(PortfolioData.resumeUrl),
+                        onTap: () => downloadResume(context),
                       ),
                     ],
                   ),
@@ -241,6 +242,11 @@ class Footer extends StatelessWidget {
                 icon: Icons.mail_outline_rounded,
                 tooltip: 'Email',
                 onTap: () => openUrl('mailto:${PortfolioData.email}'),
+              ),
+              _SocialIcon(
+                icon: Icons.description_outlined,
+                tooltip: 'Download resume',
+                onTap: () => downloadResume(context),
               ),
               _SocialIcon(
                 icon: Icons.call_rounded,

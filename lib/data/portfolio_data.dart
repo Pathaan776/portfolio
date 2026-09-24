@@ -13,8 +13,8 @@ class PortfolioData {
   ];
   static const tagline =
       "I've been building Flutter apps for six years. Right now I lead the "
-      'mobile team at Pay10, where our UAE wallet is live on the Play Store '
-      'and the App Store.';
+      'mobile team at Pay10. Our UAE wallet is live on the Play Store and the '
+      'App Store, and Pay10 India is now live on the Play Store too.';
   static const location = 'Delhi NCR, India';
 
   static const email = 'khanrahish776@gmail.com';
@@ -24,12 +24,16 @@ class PortfolioData {
   static const linkedIn = 'https://www.linkedin.com/in/rahish-khan/';
   // Add your GitHub URL here when you want it public, e.g. 'https://github.com/yourname'
   static const String? github = null;
-  // Put a resume PDF at web/resume.pdf and it will be served at /resume.pdf
+  // The resume lives at web/resume.pdf (served at /resume.pdf).
+  // Replace that file to update it. Visitors get it under resumeFileName.
   static const resumeUrl = 'resume.pdf';
+  static const resumeFileName = 'Rahish_Khan_Flutter_Resume.pdf';
 
   static const playStore =
       'https://play.google.com/store/apps/details?id=ae.payten.wallet.app';
   static const appStore = 'https://apps.apple.com/in/app/pay10-uae/id6739810874';
+  static const playStoreIndia =
+      'https://play.google.com/store/apps/details?id=in.pay10.wallet.app';
 
   static const about =
       'I started working with Flutter in 2020 at Quick Web Codes, a small '
@@ -41,8 +45,9 @@ class PortfolioData {
       'In 2024 I joined Pay10. I lead a team of four developers and look after '
       'the Pay10 UAE wallet from the first commit to the store release. Scan & '
       'Pay, fund transfers, bank linking and Emirates ID KYC all went through '
-      'my hands, and about 2,000 people use the app today. We got our NPCI '
-      'licence in August 2026, so now I am building Pay10 India.\n\n'
+      'my hands, and about 2,000 people use the app today. After we got '
+      'our NPCI licence in August 2026, my team built Pay10 India, and it is '
+      'now live on Google Play too.\n\n'
       'The part I enjoy most is taking a messy requirement and turning it into '
       'an app that feels simple to use and is easy for the next developer to '
       'work on.';
@@ -67,8 +72,8 @@ class PortfolioData {
             'Play and the App Store with around 2,000 active users.',
         'I worked on Scan & Pay, fund transfers, bank account linking and a '
             'KYC flow that reads the Emirates ID with OCR.',
-        'We got the NPCI licence in August 2026, and I am now building the '
-            'India version of the app.',
+        'After the NPCI licence in August 2026, we built and launched Pay10 '
+            'India. It is now live on Google Play.',
         'I handle Play Store and App Store releases and send UAT builds to '
             'testers through Firebase App Distribution.',
       ],
@@ -108,6 +113,23 @@ class PortfolioData {
         ProjectLink('App Store', appStore, Icons.apple),
       ],
       featured: true,
+      orbit: ['Scan & Pay', 'KYC', 'Transfers', 'Bank Link'],
+    ),
+    Project(
+      title: 'Pay10 India',
+      subtitle: 'Digital wallet for India · Live',
+      description:
+          'The India version of our wallet. We started building it once Pay10 '
+          'got its NPCI licence in August 2026, using what we learned from the '
+          'UAE app, and it is now live on Google Play.',
+      tags: ['Flutter', 'Payments', 'NPCI', 'Firebase', 'Team Lead'],
+      icon: Icons.currency_rupee_rounded,
+      accent: Color(0xFF00D1B2),
+      links: [
+        ProjectLink('Google Play', playStoreIndia, Icons.shop_rounded),
+      ],
+      featured: true,
+      orbit: ['Wallet', 'NPCI', 'Payments', 'Secure'],
     ),
     Project(
       title: 'KOOP Wallet',
@@ -214,6 +236,9 @@ class Project {
   final Color accent;
   final List<ProjectLink> links;
   final bool featured;
+
+  /// Short labels that orbit the icon on a featured card.
+  final List<String> orbit;
   const Project({
     required this.title,
     required this.subtitle,
@@ -223,5 +248,6 @@ class Project {
     required this.accent,
     this.links = const [],
     this.featured = false,
+    this.orbit = const [],
   });
 }
