@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--
+    base href is replaced by `flutter build web --base-href /...`.
+  -->
+  <base href="$FLUTTER_BASE_HREF">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#07070D">
+
+  <title>Rahish Khan · Senior Flutter Developer</title>
+  <meta name="description" content="I'm Rahish Khan, a Flutter developer from Delhi NCR with 6+ years of experience. I lead the mobile team at Pay10 and work on the Pay10 UAE wallet, which is live on Google Play and the App Store.">
+  <meta name="keywords" content="Rahish Khan, Flutter Developer, Senior Flutter Developer, Mobile Lead, FinTech, Dart, Delhi NCR">
+
+  <!-- Social preview -->
+  <meta property="og:title" content="Rahish Khan · Senior Flutter Developer">
+  <meta property="og:description" content="Flutter developer and mobile team lead at Pay10. Wallets, payments and Web3 apps.">
+  <meta property="og:type" content="website">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Rahish Khan">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+  <link rel="icon" type="image/png" href="favicon.png"/>
+  <link rel="manifest" href="manifest.json">
+
+  <style>
+    html, body { margin: 0; height: 100%; background: #07070D; }
+    #splash {
+      position: fixed; inset: 0; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 22px;
+      background: #07070D; z-index: 9999;
+      transition: opacity .6s ease, visibility .6s ease;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+    #splash.hide { opacity: 0; visibility: hidden; }
+    #splash .logo {
+      width: 72px; height: 72px; border-radius: 20px;
+      background: linear-gradient(135deg, #7C5CFF, #4DA3FF, #00D1B2);
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font: 800 26px system-ui, sans-serif;
+      box-shadow: 0 0 60px rgba(124, 92, 255, .55);
+      animation: pulse 1.6s ease-in-out infinite;
+    }
+    #splash .bar {
+      width: 160px; height: 3px; border-radius: 3px; overflow: hidden;
+      background: #1c1c2b;
+    }
+    #splash .bar::after {
+      content: ""; display: block; height: 100%; width: 40%;
+      background: linear-gradient(90deg, #7C5CFF, #00D1B2);
+      animation: load 1.1s ease-in-out infinite;
+    }
+    #splash .txt { color: #9A9AB5; font-size: 13px; letter-spacing: 1px; }
+    @keyframes pulse { 0%,100% { transform: scale(1) } 50% { transform: scale(1.08) } }
+    @keyframes load { 0% { transform: translateX(-100%) } 100% { transform: translateX(260%) } }
+  </style>
+</head>
+<body>
+  <div id="splash">
+    <div class="logo">RK</div>
+    <div class="bar"></div>
+    <div class="txt">&gt; flutter run portfolio</div>
+  </div>
+
+  <script>
+    window.addEventListener('flutter-first-frame', function () {
+      var s = document.getElementById('splash');
+      if (!s) return;
+      s.classList.add('hide');
+      setTimeout(function () { s.remove(); }, 700);
+    });
+  </script>
+  <script src="flutter_bootstrap.js" async></script>
+</body>
+</html>
