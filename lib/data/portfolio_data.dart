@@ -23,7 +23,7 @@ class PortfolioData {
   static const whatsApp = 'https://wa.me/919958801488';
   static const linkedIn = 'https://www.linkedin.com/in/rahish-khan/';
   // Add your GitHub URL here when you want it public, e.g. 'https://github.com/yourname'
-  static const String? github = null;
+  static const String? github = 'https://github.com/Pathaan776';
   // The resume lives at web/resume.pdf (served at /resume.pdf).
   // Replace that file to update it. Visitors get it under resumeFileName.
   static const resumeUrl = 'resume.pdf';
@@ -34,6 +34,8 @@ class PortfolioData {
   static const appStore = 'https://apps.apple.com/in/app/pay10-uae/id6739810874';
   static const playStoreIndia =
       'https://play.google.com/store/apps/details?id=in.pay10.wallet.app';
+  static const appStoreIndia =
+      'https://apps.apple.com/us/app/pay10-india/id6804961349';
 
   static const about =
       'I started working with Flutter in 2020 at Quick Web Codes, a small '
@@ -121,12 +123,16 @@ class PortfolioData {
       description:
           'The India version of our wallet. We started building it once Pay10 '
           'got its NPCI licence in August 2026, using what we learned from the '
-          'UAE app, and it is now live on Google Play.',
+          'UAE app. It is live on Google Play, and the iOS version is in App '
+          'Store review right now.',
       tags: ['Flutter', 'Payments', 'NPCI', 'Firebase', 'Team Lead'],
       icon: Icons.currency_rupee_rounded,
       accent: Color(0xFF00D1B2),
       links: [
         ProjectLink('Google Play', playStoreIndia, Icons.shop_rounded),
+        // iOS build is in App Store review. When it goes live, delete
+        // `comingSoon: true` and the button becomes a normal link.
+        ProjectLink('App Store', appStoreIndia, Icons.apple, comingSoon: true),
       ],
       featured: true,
       orbit: ['Wallet', 'NPCI', 'Payments', 'Secure'],
@@ -184,6 +190,50 @@ class PortfolioData {
     ),
   ];
 
+  /// Personal AI projects, shown in their own row under the Pay10 apps.
+  static const aiProjects = [
+    Project(
+      title: 'Meeting Copilot',
+      subtitle: 'AI assistant for live calls · macOS & Windows',
+      description:
+          'A desktop app that listens to a call, picks out the questions '
+          'people ask and shows a short answer in a small window that stays '
+          'on top. Speech is turned into text on the device (Apple Speech on '
+          'macOS, Vosk offline on Windows), and you can switch between Claude, '
+          'ChatGPT, Gemini and Groq in the middle of a call.',
+      tags: [
+        'Flutter Desktop', 'Platform Channels', 'LLM Streaming', 'Provider',
+        'On-device Speech',
+      ],
+      icon: Icons.headset_mic_rounded,
+      accent: Color(0xFFB76CFF),
+      links: [
+        ProjectLink('View code', 'https://github.com/Pathaan776/interview-crack-AI',
+            Icons.code_rounded),
+      ],
+      badge: 'SIDE PROJECT · AI',
+      orbit: ['Claude', 'Gemini', 'ChatGPT', 'Groq'],
+    ),
+    Project(
+      title: 'FitCheck',
+      subtitle: 'On-device workout form coach',
+      description:
+          'Point the phone camera at yourself and it tracks 33 body points '
+          'with Google ML Kit. It counts squats and push-ups, times your plank '
+          'and scores every rep on depth and body line. Everything runs on the '
+          'phone, so no video or photo ever leaves it.',
+      tags: ['Flutter', 'ML Kit', 'BLoC', 'get_it', 'Clean Architecture'],
+      icon: Icons.fitness_center_rounded,
+      accent: Color(0xFFFF6B9D),
+      links: [
+        ProjectLink('View code', 'https://github.com/Pathaan776/exercise-with-AI',
+            Icons.code_rounded),
+      ],
+      badge: 'SIDE PROJECT · AI',
+      orbit: ['Squats', 'Push-ups', 'Plank', 'On-device'],
+    ),
+  ];
+
   static const skills = {
     'Mobile': [
       'Flutter', 'Dart', 'Flutter Web', 'Android', 'iOS', 'Animations',
@@ -226,7 +276,10 @@ class Experience {
 class ProjectLink {
   final String label, url;
   final IconData icon;
-  const ProjectLink(this.label, this.url, this.icon);
+
+  /// True while the app is not public yet (e.g. in App Store review).
+  final bool comingSoon;
+  const ProjectLink(this.label, this.url, this.icon, {this.comingSoon = false});
 }
 
 class Project {
@@ -239,6 +292,9 @@ class Project {
 
   /// Short labels that orbit the icon on a featured card.
   final List<String> orbit;
+
+  /// Replaces the automatic "LIVE ON …" tag when set.
+  final String? badge;
   const Project({
     required this.title,
     required this.subtitle,
@@ -249,5 +305,6 @@ class Project {
     this.links = const [],
     this.featured = false,
     this.orbit = const [],
+    this.badge,
   });
 }

@@ -35,6 +35,25 @@ class ProjectsSection extends StatelessWidget {
             const SizedBox(height: 28),
           ],
         if (w >= 1000 && featured.length > 1) const SizedBox(height: 28),
+        const SizedBox(height: 36),
+        const _SubHeading(
+          title: 'Side projects with AI',
+          subtitle: 'Things I build after work to try new ideas.',
+        ),
+        const SizedBox(height: 24),
+        if (w >= 1000)
+          _FeaturedRow(projects: PortfolioData.aiProjects)
+        else
+          for (final p in PortfolioData.aiProjects) ...[
+            Reveal(child: _FeaturedCard(project: p)),
+            const SizedBox(height: 28),
+          ],
+        const SizedBox(height: 64),
+        const _SubHeading(
+          title: 'Client work',
+          subtitle: 'Apps I built at Quick Web Codes between 2020 and 2024.',
+        ),
+        const SizedBox(height: 24),
         LayoutBuilder(
           builder: (context, c) {
             const gap = 24.0;
@@ -298,8 +317,14 @@ class _FeaturedCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final p = project;
     final wide = !compact && MediaQuery.sizeOf(context).width >= 900;
+    final live = p.links.where((l) => !l.comingSoon).map((l) => l.label).toList();
+    final onPlay = live.contains('Google Play');
+    final onApple = live.contains('App Store');
     final liveTag = TagChip(
-      p.links.length > 1 ? 'LIVE ON PLAY STORE & APP STORE' : 'LIVE ON PLAY STORE',
+      p.badge ??
+      (onPlay && onApple
+          ? 'LIVE ON PLAY STORE & APP STORE'
+          : (onApple ? 'LIVE ON APP STORE' : 'LIVE ON PLAY STORE')),
       color: p.accent,
     );
 
@@ -321,12 +346,15 @@ class _FeaturedCard extends StatelessWidget {
       runSpacing: 14,
       children: [
         for (var i = 0; i < p.links.length; i++)
-          GlowButton(
-            label: p.links[i].label,
-            icon: p.links[i].icon,
-            filled: i == 0,
-            onTap: () => openUrl(p.links[i].url),
-          ),
+          if (p.links[i].comingSoon)
+            _ComingSoonButton(link: p.links[i])
+          else
+            GlowButton(
+              label: p.links[i].label,
+              icon: p.links[i].icon,
+              filled: i == 0,
+              onTap: () => openUrl(p.links[i].url),
+            ),
       ],
     );
 
@@ -539,6 +567,127 @@ class _FeaturedVisualState extends State<_FeaturedVisual>
     return AspectRatio(
       aspectRatio: 1,
       child: LayoutBuilder(builder: (context, c) => _orbit(c.maxWidth)),
+    );
+  }
+}
+
+/// Store button for a build that is still in review: muted, not clickable,
+/// with a softly pulsing "In review" badge.
+class _ComingSoonButton extends StatefulWidget {
+  final ProjectLink link;
+  const _ComingSoonButton({required this.link});
+
+  @override
+  State<_ComingSoonButton> createState() => _ComingSoonButtonState();
+}
+
+class _ComingSoonButtonState extends State<_ComingSoonButton>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _c = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 1600),
+  )..repeat(reverse: true);
+
+  @override
+  void dispose() {
+    _c.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Tooltip(
+      message: 'iOS app is in App Store review. Coming soon.',
+      child: MouseRegion(
+        cursor: SystemMouseCursors.forbidden,
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(14),
+            border: Border.all(color: AppColors.border),
+            color: AppColors.card.withOpacity(0.6),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(widget.link.icon, size: 18, color: AppColors.muted),
+              const SizedBox(width: 10),
+              Text(
+                widget.link.label,
+                style: const TextStyle(
+                  color: AppColors.muted,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 15,
+                ),
+              ),
+              const SizedBox(width: 10),
+              AnimatedBuilder(
+                animation: _c,
+                builder: (context, child) => Opacity(
+                  opacity: 0.55 + 0.45 * _c.value,
+                  child: child,
+                ),
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFFFB547).withOpacity(0.14),
+                    borderRadius: BorderRadius.circular(6),
+                    border: Border.all(
+                        color: const Color(0xFFFFB547).withOpacity(0.5)),
+                  ),
+                  child: Text(
+                    'IN REVIEW',
+                    style: AppTheme.mono(10, color: const Color(0xFFFFB547)),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Small heading used to split the Work section into groups.
+class _SubHeading extends StatelessWidget {
+  final String title;
+  final String subtitle;
+  const _SubHeading({required this.title, required this.subtitle});
+
+  @override
+  Widget build(BuildContext context) {
+    return Reveal(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            width: 4,
+            height: 44,
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                colors: [AppColors.primary, AppColors.secondary],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              ),
+              borderRadius: BorderRadius.circular(4),
+            ),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(title, style: AppTheme.display(26, weight: FontWeight.w700)),
+                const SizedBox(height: 4),
+                Text(subtitle,
+                    style: const TextStyle(color: AppColors.muted, fontSize: 15)),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
