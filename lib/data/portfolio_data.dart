@@ -200,18 +200,29 @@ class PortfolioData {
           'people ask and shows a short answer in a small window that stays '
           'on top. Speech is turned into text on the device (Apple Speech on '
           'macOS, Vosk offline on Windows), and you can switch between Claude, '
-          'ChatGPT, Gemini and Groq in the middle of a call.',
+          'ChatGPT, Gemini and Groq in the middle of a call. The code is '
+          'private, but I am happy to walk you through it or show a live demo.',
       tags: [
         'Flutter Desktop', 'Platform Channels', 'LLM Streaming', 'Provider',
         'On-device Speech',
       ],
       icon: Icons.headset_mic_rounded,
       accent: Color(0xFFB76CFF),
+      // Private repo: no code link. Visitors contact me for a demo instead.
       links: [
-        ProjectLink('View code', 'https://github.com/Pathaan776/interview-crack-AI',
-            Icons.code_rounded),
+        ProjectLink(
+          'Ask for a demo',
+          'mailto:$email?subject=Meeting%20Copilot%20demo'
+              '&body=Hi%20Rahish%2C%20I%20saw%20Meeting%20Copilot%20on%20your%20portfolio%20and%20would%20like%20to%20know%20more.',
+          Icons.mail_outline_rounded,
+        ),
+        ProjectLink(
+          'WhatsApp',
+          '$whatsApp?text=Hi%20Rahish%2C%20I%20saw%20Meeting%20Copilot%20on%20your%20portfolio%20and%20would%20like%20to%20know%20more.',
+          Icons.chat_rounded,
+        ),
       ],
-      badge: 'SIDE PROJECT · AI',
+      badge: 'SIDE PROJECT · AI · PRIVATE REPO',
       orbit: ['Claude', 'Gemini', 'ChatGPT', 'Groq'],
     ),
     Project(

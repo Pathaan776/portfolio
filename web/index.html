@@ -67,6 +67,14 @@
   </div>
 
   <script>
+    // Old Flutter builds registered a service worker that keeps serving the
+    // previous version after a deploy. Remove it so visitors always get the
+    // latest site.
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(function (regs) {
+        regs.forEach(function (r) { r.unregister(); });
+      });
+    }
     window.addEventListener('flutter-first-frame', function () {
       var s = document.getElementById('splash');
       if (!s) return;
